@@ -5,6 +5,9 @@ const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcryptjs");
+// const { body, validationResult } = require("express-validator");
+const { check, validationResult, body } = require("express-validator");
+const res = require("express/lib/response");
 require("dotenv").config();
 
 const app = express();
@@ -18,8 +21,6 @@ app.use(express.static("public")); //make folder public
 app.use(express.urlencoded({ extended: true })); //allows for form data to work
 
 const port = process.env.PORT || 3000;
-// const dbUri =
-//   "mongodb+srv://a:test@members.9cwrw.mongodb.net/auth?retryWrites=true&w=majority";
 
 const dbUri = process.env.dburl;
 mongoose
@@ -66,7 +67,7 @@ app.use(function (req, res, next) {
 });
 
 app.get("/", (req, res) => {
-  res.render("index", { title: "sign-up", user: req.user });
+  res.render("index", { title: "login", user: req.user });
 });
 
 app.get("/sign-up", (req, res) => {
@@ -81,25 +82,44 @@ app.post(
   })
 );
 
-app.post("/sign-up", (req, res, next) => {
-  bcrypt.hash("somePassword", 10, (err, hashedPassword) => {
-    // if err, do something
-    // otherwise, store hashedPassword in DB
-    if (err) {
-      console.log(err);
-    } else {
-      const user = new User({
-        username: req.body.username,
-        password: hashedPassword,
-      }).save((err) => {
-        if (err) {
-          return next(err);
-        }
-        res.redirect("/");
-      });
+app.use(express.json());
+
+app.post(
+  "/sign-up",
+
+  body("username").isLength({ min: 3 }).trim().escape(),
+  body("password").isLength({ min: 3 }),
+  body("passwordConfirmation").custom((value, { req }) => {
+    console.log(value, req.body.password);
+    if (req.body.confirmpassword !== req.body.password) {
+      console.log("errrr");
+      throw new Error("Password confirmation does not match password");
     }
-  });
-});
+    return true;
+  }),
+
+  (req, res, next) => {
+    bcrypt.hash("somePassword", 10, (err, hashedPassword) => {
+      // if err, do something
+      // otherwise, store hashedPassword in DB
+
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).redirect("/sign-up");
+      } else {
+        const user = new User({
+          username: req.body.username,
+          password: hashedPassword,
+        }).save((err) => {
+          if (err) {
+            return next(err);
+          }
+          res.redirect("/");
+        });
+      }
+    });
+  }
+);
 
 app.get("/log-out", (req, res) => {
   req.logout();
