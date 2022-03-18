@@ -1,17 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title></title>
-  </head>
+  <%-include("./partials/head.ejs")%>
   <body>
+    <%-include("./partials/navbar.ejs")%>
     <h1>Sign Up</h1>
     <form action="" method="POST">
       <label for="username">Username</label>
       <input name="username" placeholder="username" type="text" />
       <label for="password">Password</label>
       <input name="password" type="password" />
+      <!--  -->
+
+      <!--  -->
+      <label for="password">Confirm Password</label>
+      <input name="confirmpassword" type="password" />
+
+      <!-- <label for="password">Are you a member?</label>
+      <input type="checkbox" name="isMember" value="Boat" /> -->
       <button>Sign Up</button>
     </form>
+    <%-include("./partials/footer.ejs")%>
   </body>
 </html>
