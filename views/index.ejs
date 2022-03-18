@@ -1,11 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title></title>
-  </head>
+  <%-include("./partials/head.ejs")%>
   <body>
-    <% if (user) {%>
+    <%-include("./partials/navbar.ejs")%> <% if (user) {%>
     <h1>WELCOME BACK <%= user.username %></h1>
     <a href="/log-out">LOG OUT</a>
     <% } else { %>
@@ -17,6 +14,6 @@
       <input name="password" type="password" />
       <button>Log In</button>
     </form>
-    <%}%>
+    <%}%> <%-include("./partials/footer.ejs")%>
   </body>
 </html>
