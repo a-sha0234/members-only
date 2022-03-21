@@ -8,6 +8,8 @@ const bcrypt = require("bcryptjs");
 // const { body, validationResult } = require("express-validator");
 const { check, validationResult, body } = require("express-validator");
 const res = require("express/lib/response");
+const user = require("./models/userSchema");
+const userMessage = require("./models/messageSchema");
 require("dotenv").config();
 
 const app = express();
@@ -71,7 +73,11 @@ app.get("/", (req, res) => {
 });
 
 app.get("/sign-up", (req, res) => {
-  res.render("sign-up-form", { title: "sign up" });
+  res.render("sign-up-form", { title: "sign up", user: req.user });
+});
+
+app.get("/create-posts", (req, res) => {
+  res.render("createPosts", { title: "create posts", user: req.user });
 });
 
 app.post(
@@ -110,6 +116,7 @@ app.post(
         const user = new User({
           username: req.body.username,
           password: hashedPassword,
+          isMember: req.body.isMember,
         }).save((err) => {
           if (err) {
             return next(err);
@@ -120,6 +127,20 @@ app.post(
     });
   }
 );
+
+app.post("/create-posts", (req, res) => {
+  const user_msg = new userMessage({
+    name: req.user.username,
+    messageSubject: req.body.messageSubject,
+    message: req.body.message,
+  }).save((err) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.redirect("/");
+    }
+  });
+});
 
 app.get("/log-out", (req, res) => {
   req.logout();
