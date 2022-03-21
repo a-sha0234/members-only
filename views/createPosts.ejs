@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%-include("./partials/head.ejs")%>
+  <body>
+    <%-include("./partials/navbar.ejs", { user: user})%>
+    <form action="" method="POST">
+      <label for="subject">message subject </label>
+      <input name="messageSubject" placeholder="subject" type="text" />
+
+      <label for="text">message </label>
+      <textarea name="message" rows="4" cols="50" type="text"> </textarea>
+
+      <button>Post</button>
+    </form>
+  </body>
+</html>
