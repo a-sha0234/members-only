@@ -1,6 +1,28 @@
+<%if(!user){%>
+<!-- not logged in -->
 <nav>
   <ul>
     <li><a href="/">login</a></li>
     <li><a href="/sign-up">sign-up</a></li>
   </ul>
 </nav>
+
+<%} else if(user && user.isMember == "on"){%>
+<!-- logged in  and member -->
+<nav>
+  <ul>
+    <li><a href="/create-posts">create-post</a></li>
+
+    <li><a href="/log-out">LOG OUT</a></li>
+  </ul>
+</nav>
+
+<%} else{%>
+<!-- logged in but not member  -->
+<nav>
+  <ul>
+    <li><a href="/">Posts</a></li>
+    <a href="/log-out">LOG OUT</a>
+  </ul>
+</nav>
+<%}%>
