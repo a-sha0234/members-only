@@ -2,9 +2,10 @@
 <html lang="en">
   <%-include("./partials/head.ejs")%>
   <body>
-    <%-include("./partials/navbar.ejs")%> <% if (user) {%>
+    <%-include("./partials/navbar.ejs", { user: user})%> <% if (user) {%>
+
     <h1>WELCOME BACK <%= user.username %></h1>
-    <a href="/log-out">LOG OUT</a>
+
     <% } else { %>
     <h1>please log in</h1>
     <form action="/log-in" method="POST">
