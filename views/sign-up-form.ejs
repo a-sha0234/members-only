@@ -19,6 +19,12 @@
       <input type="checkbox" name="isMember" />
       <button>Sign Up</button>
     </form>
+    <div>
+      <% if(errMsg) {%>
+      <h3><%=errMsg%></h3>
+
+      <%}%>
+    </div>
     <%-include("./partials/footer.ejs")%>
   </body>
 </html>
