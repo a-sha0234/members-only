@@ -5,7 +5,7 @@ const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcryptjs");
-// const { body, validationResult } = require("express-validator");
+
 const { check, validationResult, body } = require("express-validator");
 const res = require("express/lib/response");
 const user = require("./models/userSchema");
@@ -69,11 +69,21 @@ app.use(function (req, res, next) {
 });
 
 app.get("/", (req, res) => {
-  res.render("index", { title: "login", user: req.user });
+  //retrive all posts and send to index
+  userMessage
+    .find()
+    .sort({ createAt: -1 })
+    .then((result) => {
+      res.render("index", {
+        title: "login",
+        user: req.user,
+        userPosts: result,
+      });
+    });
 });
 
 app.get("/sign-up", (req, res) => {
-  res.render("sign-up-form", { title: "sign up", user: req.user });
+  res.render("sign-up-form", { title: "sign up", user: req.user, errMsg: "" });
 });
 
 app.get("/create-posts", (req, res) => {
@@ -96,9 +106,7 @@ app.post(
   body("username").isLength({ min: 3 }).trim().escape(),
   body("password").isLength({ min: 3 }),
   body("passwordConfirmation").custom((value, { req }) => {
-    console.log(value, req.body.password);
     if (req.body.confirmpassword !== req.body.password) {
-      console.log("errrr");
       throw new Error("Password confirmation does not match password");
     }
     return true;
@@ -109,26 +117,67 @@ app.post(
       // if err, do something
       // otherwise, store hashedPassword in DB
 
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        return res.status(400).redirect("/sign-up");
-      } else {
-        const user = new User({
-          username: req.body.username,
-          password: hashedPassword,
-          isMember: req.body.isMember,
-        }).save((err) => {
-          if (err) {
-            return next(err);
+      // user.find({ username: req.body.username }).then((result) => {
+      //   if (result.username == req.body.username) {
+      //     res.render("sign-up-form", {
+      //       title: "sign up",
+      //       user: req.user,
+      //       errMsg: "user already exists ",
+      //     });
+      //   } else {
+
+      user
+        .find({ username: req.body.username })
+        .then((result) => {
+          if (result[0].username == req.body.username) {
+            res.render("sign-up-form", {
+              title: "sign up",
+              user: req.user,
+              errMsg: "user already exists ",
+            });
           }
-          res.redirect("/");
+        })
+        .catch(() => {
+          const errors = validationResult(req);
+          if (!errors.isEmpty()) {
+            return res.status(400).redirect("/sign-up");
+          } else {
+            const user = new User({
+              username: req.body.username,
+              password: hashedPassword,
+              isMember: req.body.isMember,
+            }).save((err) => {
+              if (err) {
+                return next(err);
+              }
+              res.redirect("/");
+            });
+          }
         });
-      }
     });
   }
 );
+//       const errors = validationResult(req);
+//       if (!errors.isEmpty()) {
+//         return res.status(400).redirect("/sign-up");
+//       } else {
+//         const user = new User({
+//           username: req.body.username,
+//           password: hashedPassword,
+//           isMember: req.body.isMember,
+//         }).save((err) => {
+//           if (err) {
+//             return next(err);
+//           }
+//           res.redirect("/");
+//         });
+//       }
+//     });
+//   }
+// );
 
 app.post("/create-posts", (req, res) => {
+  //send post info to database
   const user_msg = new userMessage({
     name: req.user.username,
     messageSubject: req.body.messageSubject,
