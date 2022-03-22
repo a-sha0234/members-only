@@ -5,8 +5,15 @@
     <%-include("./partials/navbar.ejs", { user: user})%> <% if (user) {%>
 
     <h1>WELCOME BACK <%= user.username %></h1>
+    <h2>All posts</h2>
+    <% userPosts.forEach(item =>{ %> <%if(user.isMember == "on") { %>
+    <p><%= item.name%></p>
+    <% } %>
 
-    <% } else { %>
+    <p><%=item. messageSubject%></p>
+    <p><%=item.message%></p>
+    <%})%> <% } else { %>
+
     <h1>please log in</h1>
     <form action="/log-in" method="POST">
       <label for="username">Username</label>
