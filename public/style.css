@@ -1,0 +1,18 @@
+#footer {
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  width: 100%;
+}
+
+li {
+  list-style: none;
+}
+
+/* navbar */
+
+.navbar__items {
+  font-size: 1.8rem;
+  margin-left: 10px;
+}
+/* end of navbar */
