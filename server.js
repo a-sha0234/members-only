@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: true })); //allows for form data to work
 
 const port = process.env.PORT || 3000;
 
-const dbUri = process.env.DBURL;
+const DBURI = process.env.DBURL;
 mongoose
   .connect(dbUri, { useNewUrlParser: true })
   .then((result) => app.listen(port))
