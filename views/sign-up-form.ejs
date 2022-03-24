@@ -84,8 +84,9 @@
         </div>
       </form>
       <div>
+        <!-- if username already exists display error message  -->
         <% if(errMsg) {%>
-        <h3><%=errMsg%></h3>
+        <h3 style="color: red; text-align: center"><%=errMsg%></h3>
 
         <%}%>
         <div class="row justify-content-center" id="footer">
