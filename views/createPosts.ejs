@@ -4,13 +4,51 @@
   <body>
     <%-include("./partials/navbar.ejs", { user: user})%>
     <form action="" method="POST">
-      <label for="subject">message subject </label>
-      <input name="messageSubject" placeholder="subject" type="text" />
+      <!--  -->
 
-      <label for="text">message </label>
-      <textarea name="message" rows="4" cols="50" type="text"> </textarea>
+      <div class="row justify-content-center" style="margin-top: 10%">
+        <div class="col-1" style="margin: 10px">
+          <label for="subject " style="font-size: 1.5rem"
+            >message subject
+          </label>
+        </div>
+        <div class="col-3">
+          <!-- <input name="messageSubject" placeholder="subject" type="text" /> -->
+          <input
+            type="text"
+            class="form-control"
+            placeholder="subject"
+            name="messageSubject"
+            style="margin: 10px; font-size: 1.5rem"
+          />
+        </div>
+      </div>
 
-      <button>Post</button>
+      <!--  -->
+      <div class="row justify-content-center">
+        <div class="col-1" style="margin: 10px; font-size: 1.5rem">
+          <label for="text">message </label>
+        </div>
+        <div class="col-3">
+          <textarea
+            class="form-control"
+            placeholder="Leave your message here"
+            id="floatingTextarea2"
+            style="height: 150px; font-size: 1.5rem"
+            name="message"
+          ></textarea>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-1">
+          <button
+            class="btn btn-outline-primary"
+            style="margin: 15px; font-size: 1.2rem"
+          >
+            Post
+          </button>
+        </div>
+      </div>
     </form>
   </body>
 </html>
