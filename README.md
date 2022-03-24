@@ -1,6 +1,5 @@
 # members-only
 
-
 Live preview of website: https://members-only-web.herokuapp.com/
 
 # Table of contents
@@ -17,7 +16,7 @@ Live preview of website: https://members-only-web.herokuapp.com/
 
 ## Introduction <a name="introduction"></a>
 
-This is a server side web application which is used for members to create an account and create posts. Non-members can only view posts 
+This is a server side web application which is used for members to create an account and create posts. Non-members can only view posts
 
 ## Technologies Used <a name="paragraph1"></a>
 
@@ -31,17 +30,17 @@ This is a server side web application which is used for members to create an acc
 
 ## Features <a name="features-paragraph"></a>
 
-1. Ability to create an account and log in and log out 
+1. Ability to create an account and log in and log out
 2. Hashing of passwords in database using the bcrypt hashing algorithm
-3. Different permissions based on whether the user is a member or not 
-4. Ability to create posts if user is a member 
+3. Different permissions based on whether the user is a member or not
+4. Ability to create posts if user is a member
 
 ## Screenshots <a name="screenshot"></a>
 
-<img src="./public/homepage.png" width="128"/>
-<img src="./public/items.png" width="128"/>
-<img src="./public/categorypage.png" width="128"/>
-<img src="./public/form.png" width="128"/>
+<img src="./public/login.png" width="128"/>
+<img src="./public/signUp.png" width="128"/>
+<img src="./public/PostPage.png" width="128"/>
+<img src="./public/createPosts.png" width="128"/>
 ## Setup <a name="setup-paragraph"></a>
 
 Project Dependancies are listed in the package.json file: package.json
@@ -49,7 +48,7 @@ Project Dependancies are listed in the package.json file: package.json
 First clone the repo
 
 ```
-git clone https://github.com/a-sha0234/food-inventory-app.git
+git clone https://github.com/a-sha0234/members-only.git
 ```
 
 Run the following command in the command line:
@@ -72,13 +71,13 @@ nodemon server
 
 ## Status <a name="status-paragraph"></a>
 
-Finsihed, as all features has been implemented
+Not currently being worked on
 
 ## Room for improvements <a name="imporvements-paragraph"></a>
 
 Room for improvement:
 
-1. create a strong password feature that forces the user to have at least one capital letter and one symbol in their password 
+1. create a strong password feature that forces the user to have at least one capital letter and one symbol in their password
 
 ## Acknowledgements <a name="Acknowledgements-paragraph"></a>
 
