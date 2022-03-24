@@ -20,7 +20,7 @@ app.use(passport.session());
 app.use(express.static("public")); //make folder public
 app.use(express.urlencoded({ extended: true })); //allows for form data to work
 
-const port = process.env.PORT || 3000;
+const port = Process.env.PORT || 3000;
 
 const dbUri = process.env.dburl;
 mongoose
