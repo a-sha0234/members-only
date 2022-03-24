@@ -2,26 +2,104 @@
 <html lang="en">
   <%-include("./partials/head.ejs")%>
   <body>
-    <%-include("./partials/navbar.ejs", { user: user})%> <% if (user) {%>
+    <div class="row">
+      <div class="col-2">
+        <%-include("./partials/navbar.ejs", { user: user})%>
+      </div>
+    </div>
+    <% if (user) {%>
+    <div class="row justify-content-center">
+      <h1>WELCOME BACK <%= user.username %></h1>
+    </div>
+    <div class="row justify-content-center">
+      <h2>All posts</h2>
+    </div>
 
-    <h1>WELCOME BACK <%= user.username %></h1>
-    <h2>All posts</h2>
     <% userPosts.forEach(item =>{ %> <%if(user.isMember == "on") { %>
-    <p><%= item.name%></p>
-    <% } %>
+    <!-- if user is member, display username of post  -->
 
-    <p><%=item. messageSubject%></p>
-    <p><%=item.message%></p>
-    <%})%> <% } else { %>
+    <div class="row d-flex justify-content-center">
+      <div
+        class="card text-white bg-primary mb-3 col-md-6"
+        style="max-width: 60rem"
+      >
+        <div class="card-header" style="text-align: center">
+          <%=item. messageSubject%>
+        </div>
+        <h5 class="card-title">User: <%= item.name%></h5>
+        <div class="card-body">
+          <div class="card-text" style="text-align: center">
+            <%=item.message%>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% } else{ %>
+    <!-- <div class="row justify-content-center"> -->
+    <div class="row d-flex justify-content-center">
+      <div
+        class="card text-white bg-primary mb-3 col-md-6"
+        style="max-width: 60rem"
+      >
+        <div class="card-header" style="text-align: center">
+          <%=item. messageSubject%>
+        </div>
+        <div class="card-body">
+          <div class="card-text" style="text-align: center">
+            <%=item.message%>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    <h1>please log in</h1>
+    <!-- </div> -->
+    <% }%> <%})%> <% } else { %>
+
+    <div class="row justify-content-center">
+      <h1 style="margin-bottom: 100px">Log In</h1>
+    </div>
     <form action="/log-in" method="POST">
-      <label for="username">Username</label>
-      <input name="username" placeholder="username" type="text" />
-      <label for="password">Password</label>
-      <input name="password" type="password" />
-      <button>Log In</button>
+      <div class="row justify-content-center">
+        <div class="col-1" style="margin: 10px">
+          <label for="username">Username</label>
+        </div>
+
+        <div class="col-3">
+          <!-- <input name="username" placeholder="username" type="text" /> -->
+          <input
+            type="text"
+            class="form-control"
+            placeholder="username"
+            name="username"
+            style="margin: 10px"
+          />
+        </div>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="col-1" style="margin: 10px">
+          <label for="password">Password</label>
+        </div>
+        <div class="col-3">
+          <!-- <input name="password"  /> -->
+          <input
+            type="password"
+            class="form-control"
+            placeholder="Password"
+            name="password"
+            style="margin: 10px"
+          />
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-1">
+          <button class="btn btn-outline-primary" style="margin: 5px">
+            Log in
+          </button>
+        </div>
+      </div>
     </form>
-    <%}%> <%-include("./partials/footer.ejs")%>
+    <%}%>
+    <div class="row justify-content-center" id="footer"></div>
   </body>
 </html>
