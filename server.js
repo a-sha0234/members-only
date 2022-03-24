@@ -24,7 +24,7 @@ const port = process.env.PORT || 3000;
 
 const DBURI = process.env.DBURL;
 mongoose
-  .connect(dbUri, { useNewUrlParser: true })
+  .connect(DBURI, { useNewUrlParser: true })
   .then((result) => app.listen(port))
   .catch((err) => console.log(err));
 
