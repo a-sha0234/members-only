@@ -27,6 +27,7 @@ This is a server side web application which is used for members to create an acc
 5. Git version control
 6. Github
 7. Passportjs
+8. bootstrap
 
 ## Features <a name="features-paragraph"></a>
 
